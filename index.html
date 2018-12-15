@@ -1,0 +1,127 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Harry Potter Guess Game!</title>
+        <link rel = "stylesheet" href = "wordGame.css">
+    </head>
+    <body onkeyup = "btnPress()">
+        <h1>Harry Potter Guessing Game!</h1>
+        <h2 id = "wins">Wins: </h2>
+        <h2 id = "losses">Losses: </h2>
+        <h2 id= "lives">Lives: </h2> 
+        <h3 id = "guessWord"> _______</h3>
+        
+        <h3 id = "wrongLetters"> none yet</h3>
+        <h3 id = "You-win"> YOU WIN!</h3>
+            <script>
+                    words = ["Harry Potter","Hermione Granger","Ron Weasley","Albus Dumbledore","Hogwarts", "Hogsmeade",
+                            "Diagon Alley", "Slytherin", "Hufflepuff", "Ravenclaw", "Gryffindor", "Leaky Cauldron", "Godric's Hollow",
+                            "Gringott's","Draco Malfoy","Dobby","House-elf", "Quidditch","Quaffle","Snitch","Bludger","Chaser","Keeper",
+                            "Seeker","Beater","Firebolt","Sirius Black", "Neville Longbottom", "Nimbus 2000", "Cho Chang", "Cedric Diggory",
+                            "Victor Krum","Bellatrix LeStrange", "Petter Pettigrew", "Remus Lupin", "James Potter", "Grimmauld Place"];
+                    var pickWord = "";
+                    var lettersLeft;
+                    var lives;
+                    var wins = 0;
+                    var losses =0;
+                    var foundLetter;
+                    wrongLetters = "";
+                    var printWord;
+                    var gameOver = false;
+                    playAgain();
+        
+                    function playAgain() { //Reset everything to beginning; pick new word
+                        console.log("Wins: " + wins);
+                        console.log("Losses: " + losses);
+                        document.getElementById("You-win").style.display = "none";
+                        pickWord = words[Math.floor(Math.random()*words.length)];
+                        pickWord = pickWord;
+                        lettersLeft = pickWord.length;
+                        lives = 5;
+                        guessWord = [];
+                        wrongLetters = "";
+                        printWord = "";
+                        for (var i =0; i < pickWord.length;i++) {
+                            if (pickWord[i] === " " || pickWord[i] === "'") {
+                                guessWord[i] = pickWord[i];
+                                lettersLeft--;
+                                printWord = printWord + pickWord[i];
+                            } else {
+                                guessWord[i] = "_";
+                                printWord = printWord + "_";
+                            }
+                        }
+                        console.log(printWord.length);
+                        console.log(guessWord);
+                        document.getElementById("guessWord").textContent = printWord;
+                        document.getElementById("wrongLetters").textContent = "";
+                        document.getElementById("lives").textContent = "Lives: " + lives;
+                        document.getElementById("guessWord").style.color = "black";
+                    }
+                    function guessLetter(guess) {
+                        foundLetter = false;
+                        printWord ="";
+                        for(var i =0; i< pickWord.length;i++) {
+                            if (pickWord.charAt(i).toLowerCase() === guess) {
+                                if (guessWord[i].toLowerCase() === guess) {
+                                    console.log("already guessed") 
+                                    foundLetter = true;
+                                } else {
+                                    guessWord[i] = pickWord.charAt(i);
+                                    foundLetter = true;
+                                    lettersLeft--;
+                                }
+                            }
+                            printWord = printWord + guessWord[i];
+                        }
+                        console.log(guessWord);
+                        if (foundLetter) {
+                            if (lettersLeft <1) {
+                                console.log("YOU WIN!");
+                                wins++;
+                                document.getElementById("wins").textContent = "Wins: " + wins;
+                                // document.getElementById("guessWord").textContent = pickWord;
+                                // document.getElementById("guessWord").style.color = "black";
+                                //playAgain(); 
+                                document.getElementById("You-win").textContent = "Congratulations!";
+                                document.getElementById("You-win").style.display = "inherit";
+                                gameOver = true;
+                            }
+                            console.log(printWord);
+                            document.getElementById("guessWord").textContent = printWord;
+                        } else {
+                            lives--;
+                            document.getElementById("lives").textContent = "Lives: " + lives;
+                            wrongLetters = wrongLetters + guess + ", ";
+                            document.getElementById("wrongLetters").textContent = wrongLetters;
+                            console.log(lives);
+                            console.log(printWord);
+                            document.getElementById("guessWord").textContent = printWord;
+                            if (lives < 1) {
+                                console.log("You lose....");
+                                console.log(pickWord);
+                                losses++;
+                                document.getElementById("losses").textContent = "Losses: " + losses;
+                                console.log(printWord);
+                                document.getElementById("guessWord").textContent = pickWord;
+                                 document.getElementById("guessWord").style.color = "red";
+                                 document.getElementById("You-win").textContent = "Sorry! You lose...";
+                                document.getElementById("You-win").style.display = "inherit";
+                                // alert("you lost!");
+                                //playAgain();
+                                gameOver = true;
+                            }
+                        }
+                    }
+                    function btnPress() {
+                        if (gameOver) {
+                            gameOver = false;
+                            playAgain();
+                        }else {
+                            var btn = String.fromCharCode(event.keyCode).toLowerCase();
+                            guessLetter(btn);
+                        }
+                    }
+                </script>
+    </body>
+</html>
