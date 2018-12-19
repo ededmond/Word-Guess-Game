@@ -1,0 +1,15 @@
+body {
+    text-align: center;
+    background-image: url("stardust/stardust.png");
+    color:white;
+}
+#guessWord {
+    letter-spacing: 8px;
+}
+.normal {
+    color: white;
+}
+.lost {
+    color:red;
+}
+

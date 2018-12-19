@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Harry Potter Guess Game!</title>
-        <link rel = "stylesheet" href = "wordGame.css">
+        <link rel = "stylesheet" href = "assets/wordGame.css">
     </head>
     <body onkeyup = "btnPress()">
         <h1>Harry Potter Guessing Game!</h1>
@@ -17,11 +17,17 @@
                     words = ["Harry Potter","Hermione Granger","Ron Weasley","Albus Dumbledore","Hogwarts", "Hogsmeade",
                             "Diagon Alley", "Slytherin", "Hufflepuff", "Ravenclaw", "Gryffindor", "Leaky Cauldron", "Godric's Hollow",
                             "Gringott's","Draco Malfoy","Dobby","House-elf", "Quidditch","Quaffle","Snitch","Bludger","Chaser","Keeper",
-                            "Seeker","Beater","Firebolt","Sirius Black", "Neville Longbottom", "Nimbus 2000", "Cho Chang", "Cedric Diggory",
-                            "Victor Krum","Bellatrix LeStrange", "Petter Pettigrew", "Remus Lupin", "James Potter", "Grimmauld Place"];
+                            "Seeker","Beater","Firebolt","Sirius Black", "Neville Longbottom", "Gobbstones", "Cho Chang", "Cedric Diggory",
+                            "Viktor Krum","Bellatrix LeStrange", "Petter Pettigrew", "Remus Lupin", "James Potter", "Grimmauld Place",
+                            "Rubeus Hagrid","Minerva Mcgonagall","Severus Snape","Phoenix","Ginny Weasley","Cornelius Fudge","Death Eaters",
+                            "Voldemort","Tom Marvolo Riddle", "I am Lord Voldemort","You Know Who","Defense Against the Dark Arts","Transfiguration","Charms",
+                            "Herbology","Ancient Runes","The Fat Lady","Sybill Trelawney","Hippogriff","Helga Hufflepuff","Rowena Ravenclaw","Godric Gryffindor",
+                            "Salazar Slytherin","Rita Skeeter","The Daily Prophet", "Luna Lovegood", "Wengardium Leviosa","Alohamora","Lumos",
+                            "Crookshanks"];
                     var pickWord = "";
                     var lettersLeft;
                     var lives;
+                    var maxLives = 6;
                     var wins = 0;
                     var losses =0;
                     var foundLetter;
@@ -37,7 +43,7 @@
                         pickWord = words[Math.floor(Math.random()*words.length)];
                         pickWord = pickWord;
                         lettersLeft = pickWord.length;
-                        lives = 5;
+                        lives = maxLives;
                         guessWord = [];
                         wrongLetters = "";
                         printWord = "";
@@ -56,7 +62,9 @@
                         document.getElementById("guessWord").textContent = printWord;
                         document.getElementById("wrongLetters").textContent = "";
                         document.getElementById("lives").textContent = "Lives: " + lives;
-                        document.getElementById("guessWord").style.color = "black";
+                        // document.getElementById("guessWord").classList.toggle("normal");
+                        
+                        document.getElementById("guessWord").style.color = "white";
                     }
                     function guessLetter(guess) {
                         foundLetter = false;
@@ -104,6 +112,8 @@
                                 document.getElementById("losses").textContent = "Losses: " + losses;
                                 console.log(printWord);
                                 document.getElementById("guessWord").textContent = pickWord;
+                                // document.getElementById("guessWord").setAttribute("class","lost");
+                                // document.getElementById("guessWord").classList.toggle("lost");
                                  document.getElementById("guessWord").style.color = "red";
                                  document.getElementById("You-win").textContent = "Sorry! You lose...";
                                 document.getElementById("You-win").style.display = "inherit";
