@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-image: url("stardust/stardust.png");
+    background-image: url("images/stardust/stardust.png");
     color:white;
 }
 #guessWord {
@@ -11,5 +11,11 @@ body {
 }
 .lost {
     color:red;
+}
+img {
+    height:200px;
+    position:fixed;
+    bottom:0;
+    left:0;
 }
 
